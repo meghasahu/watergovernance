@@ -19,5 +19,6 @@ from water import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('check',views.index)
+    path('check',views.index),
+    path('signup',views.signup)
 ]
