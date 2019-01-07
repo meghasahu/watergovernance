@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'water'
 ]
 
 MIDDLEWARE = [
@@ -73,22 +74,37 @@ WSGI_APPLICATION = 'watergovernance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-
 DATABASES = {
-   'default' : {
-      'ENGINE' : 'djongo',
-      'NAME' : 'lbs_db'
-   }
+   'default': {
+      'ENGINE': 'django.db.backends.sqlite3',
+      'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
+
+#DATABASES = {
+#    'default' : {
+#        'ENGINE' : 'djongo',
+#        'USERNAME' : 'lbs',
+#        'PASSWORD' : 'lbs2018',
+#        'HOST' : 'mongodb://lbs:lbs2018@ds157843.mlab.com:57843',
+#        'NAME' : 'lbs_db',
+#    }
+# }
+
+ #DATABASES = {
+#'default' : { connect('lbs_db',USERNAME= 'meghasahu', PASSWORD= 'megha@1710',host = 'mongodb://lbs:lbs2018@ds157843.mlab.com:57843')
+#}}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+
+#DATABASES = { 'ENGINE':'djongo',
+#    'default': dj_database_url.parse('mongodb://lbs_water:lbs2018@ds157843.mlab.com:57843/lbs_db')
+
+#}
+
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
