@@ -16,10 +16,10 @@ def signinadmin(request):
 def signinuser(request):
 	return render(request,'sign_in_user.html')
 
-def about_us(request):
+def aboutUs(request):
 	return render(request,'about_us.html')
 
-def contact_us(request):
+def contact(request):
 	return render(request,'contact_us.html')
 
 def adminland(request):
