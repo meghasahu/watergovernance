@@ -13578,12 +13578,17 @@ fieldset[disabled] .form-group .form-control {
   min-height: 100vh;
   max-height: 1000px;
   display: flex !important;
-  height: 100%;
+  /*height: 100%;*/
   padding: 0;
   color: #fff;
   position: relative;
+  background-image: url('/static/img/water2.jpg');
+  background-size: cover;
+  background-position: center center;
+  
 }
 
+/*
 .page-header .page-header-image {
   position: absolute;
   background-size: cover;
@@ -13592,7 +13597,7 @@ fieldset[disabled] .form-group .form-control {
   height: 100%;
   z-index: -1;
 }
-
+*/
 .page-header .content-center {
   position: absolute;
   top: 50%;
@@ -13657,6 +13662,7 @@ fieldset[disabled] .form-group .form-control {
 .page-header:before {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
 
 html * {
   -webkit-font-smoothing: antialiased;
