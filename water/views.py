@@ -50,7 +50,7 @@ def signup(request):
 		"country":country,"city":city,"state":state,"pincode":pincode ,"password":password,"sensorId":sensor}
 		db.child("1000").child(uniqueid).set(data)
 
-	return render(request,'sign_up.html',)
+	return render(request,'sign_up.html')
 
 # signing as admin
 def signinadmin(request):
@@ -59,10 +59,12 @@ def signinadmin(request):
 		email = request.POST.get('email')
 		password = request.POST.get('password')
 
-		val = db.order_by_child('email').equal_to('2016.megha.sahu@ves.ac.in').get()
+		val = db.child('1000400074').order_by_child('email').equal_to('2016.megha.sahu@ves.ac.in').get()
+		#print(val.order_by_child('password').get())
 
-		for i in val.each():
-			print(val.val())
+		
+		print(val.val())
+		print("hh")
 
 		print("hey")
 
