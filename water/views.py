@@ -59,14 +59,20 @@ def signinadmin(request):
 		email = request.POST.get('email')
 		password = request.POST.get('password')
 
-		val = db.child('1000400074').order_by_child('email').equal_to('2016.megha.sahu@ves.ac.in').get()
+		#val = db.child('1000400074').order_by_child('email').equal_to('2016.megha.sahu@ves.ac.in').get()
 		#print(val.order_by_child('password').get())
 
+		idu = db.child('1000').order_by_child('mapping').equal_to(email).get().key()
+		print("key")
+		print(idu)
+		print("done")
+		val = db.child('1000').child('1000400074').child('email').shallow().get().val()
 		
-		print(val.val())
+		print(val)
 		print("hh")
 
 		print("hey")
+
 
 
 	return render(request,'sign_in_admin.html')
