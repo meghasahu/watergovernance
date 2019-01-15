@@ -62,7 +62,7 @@ input[type=submit] {
                   <p class="card-category">Enter Your Details</p>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="signinuser">
+                  <form method="post" action="signin_user">
                     {% csrf_token %}
                    
                   <div class="row">
@@ -77,7 +77,7 @@ input[type=submit] {
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Password</label>
-                          <input type="password" name="username" class="form-control" required="true">
+                          <input type="password" name="password" class="form-control" required="true">
                         </div>
                       </div>
                     </div>
