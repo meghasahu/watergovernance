@@ -1,42 +1,33 @@
 {% extends "nav.html" %}
 {% block content %}
-<section>
+
+<div class="container-fluid">
 <div class="row">
-  <div class="col-6">
-    <div class="card">
-      <div class="card-body">
-        The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona...
+
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+  <h1 style="color:white;z-index:99;padding-top:20%;">Water Security can only be achieved through Water Management</h1>
+
+</div>
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+      <div class="card" style="z-index:99;">
+          
+          <div class="card-body">
+             Admin Panel is designed to provide a proper interface for understanding the water consumption in particular regions and for predictions.
+          </div>
+          <a href='signin_admin' class="btn btn-primary card-title">Go to Admin Panel</a>
       </div>
-    </div>
+  </div>
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+      <div class="card" style="z-index:99;">
+          
+          <div class="card-body">
+             Public Panel is designed to provide a proper interface for the individuals to check their individual water consumption and the quality of the water they recieved over the period from which water meter was installed.
+          </div>
+          <a href='signin_user' class="btn btn-primary">Go to Public Panel</a>
+      </div>
   </div>
 </div>
-</section>
-<aside>
-  <div class="col-md-6">
-      <div class="card">
-          <div class="card-header card-header-text card-header-primary">
-            <div class="card-text">
-              <h4 class="card-title">Here is the Text</h4>
-            </div>
-          </div>
-          <div class="card-body">
-              The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona...
-          </div>
-          <a href="#0" class="btn btn-primary card-title">Go somewhere</a>
-      </div>
-  </div>
-<div class="col-md-6">
-      <div class="card">
-          <div class="card-header card-header-text card-header-primary">
-            <div class="card-text">
-              <h4 class="card-title">Here is the Text</h4>
-            </div>
-          </div>
-          <div class="card-body">
-              The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona...
-          </div>
-          <a href="#0" class="btn btn-primary">Go somewhere</a>
-      </div>
-  </div>
-</aside>
+</div>
 {% endblock %}

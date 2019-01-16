@@ -24,5 +24,5 @@ urlpatterns = [
     path('signin_user',views.signinuser),
     path('aboutUs',views.aboutUs),
     path('contact',views.contact),
-    path('admin',views.adminland)
+    path('admin/',views.adminland)
 ]
