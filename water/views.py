@@ -5,10 +5,17 @@ from django.contrib import messages
 import csv
 
 #Package for model
-import pandas
-from pandas import Series
+
+from statsmodels.tsa.arima_model import ARIMA,ARIMAResults
+from scipy.stats import boxcox
+import numpy
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+
+from matplotlib import pyplot
+
+import pandas
+from pandas import Series
 
 from matplotlib import pyplot
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -213,9 +220,12 @@ def modelResult(request):
 	dataset.to_csv('dataset.csv')
 	validation.to_csv('validation.csv')
 
+	
 	# load data
 	series = Series.from_csv('dataset.csv')
 	# prepare data
+
+
 	X = series.values
 	X = X.astype('float32')
 	train_size = int(len(X) * 0.50)
@@ -238,7 +248,7 @@ def modelResult(request):
 
 	fig = Figure()
 	ax = fig.add_subplot(111)
-	data_df = pandas.read_csv("dataset.csv")
+	data_df = pandas.read_csv("water.csv")
 	data_df = pandas.DataFrame(data_df)
 	data_df.plot(ax=ax)
 	canvas = FigureCanvas(fig)
@@ -250,7 +260,7 @@ def modelResult(request):
 	#return response
 
 	"""
-	series = Series.from_csv('dataset.csv')
+	series = Series.from_csv('water.csv')
 	res = series.plot()
 	#pyplot.show()
 
@@ -267,9 +277,68 @@ def modelResult(request):
 	pyplot.close()
 	graph = base64.b64encode(buffer.getvalue())
 
-	"""
+	
 	#return response
 
+	def __getnewargs__(self):
+		return ((self.endog),(self.k_lags, self.k_diff, self.k_ma))
     #return HttpResponse(buffer.getvalue(), content_type="image/png")
+    ARIMA.__getnewargs__ = __getnewargs__
+ 
+# load data
+	series = Series.from_csv('dataset.csv')
+	# prepare data
+	X = series.values
+	X = X.astype('float32')
+	# fit model
+	model = ARIMA(X, order=(2,1,0))
+	model_fit = model.fit(trend='nc', disp=0)
+	# bias constant, could be calculated from in-sample mean residual
+	bias = 1.081624
+	# save model
+	model_fit.save('model.pkl')
+	numpy.save('model_bias.npy', [bias])
+
+	model_fit = ARIMAResults.load('model.pkl')
+	bias = numpy.load('model_bias.npy')
+	yhat = bias + float(model_fit.forecast()[0])
+	print('Predicted: %.3f' % yhat)
+
+	# final
+
+	dataset = Series.from_csv('dataset.csv')
+	X = dataset.values.astype('float32')
+	history = [x for x in X]
+	validation = Series.from_csv('validation.csv')
+	y = validation.values.astype('float32')
+	# load model
+	model_fit = ARIMAResults.load('model.pkl')
+	bias = numpy.load('model_bias.npy')
+	# make first prediction
+	predictions = list()
+	yhat = bias + float(model_fit.forecast()[0])
+	predictions.append(yhat)
+	history.append(y[0])
+	print('>Predicted=%.3f, Expected=%3.f' % (yhat, y[0]))
+# rolling forecasts
+	for i in range(1, len(y)):
+		# predict
+		model = ARIMA(history, order=(2,1,0))
+		model_fit = model.fit(trend='nc', disp=0)
+		yhat = bias + float(model_fit.forecast()[0])
+		predictions.append(yhat)
+		# observation
+		obs = y[i]
+		history.append(obs)
+		print('>Predicted=%.3f, Expected=%3.f' % (yhat, obs))
+# report performance
+	mse = mean_squared_error(y, predictions)
+	rmse = sqrt(mse)
+	print('RMSE: %.3f' % rmse)
+	pyplot.plot(y)
+	pyplot.plot(predictions, color='red')
+	pyplot.show()
+	"""
+
 
 	return render(request,'modelResult.html')

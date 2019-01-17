@@ -26,5 +26,5 @@ urlpatterns = [
     path('contact',views.contact),
     path('admin/',views.adminland),
     path('user',views.userland),
-    path('adminModel',views.modelResult)
+    path('admin/adminModel',views.modelResult)
 ]
