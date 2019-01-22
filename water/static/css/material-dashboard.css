@@ -13578,13 +13578,14 @@ fieldset[disabled] .form-group .form-control {
   min-height: 100vh;
   max-height: 1000px;
   display: flex !important;
-  /*height: 100%;*/
-  padding: 0;
-  color: #fff;
-  position: relative;
-  background-image: url('/static/img/water2.jpg');
-  background-size: cover;
-  background-position: center center;
+  /*height: 100%;
+  padding: 0;*/
+  color: #fff; 
+  background-color:lightblue;
+  background-repeat: no-repeat;
+  position: static;
+  z-index:99;
+  
   
 }
 

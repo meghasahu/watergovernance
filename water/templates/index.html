@@ -1,6 +1,20 @@
 {% extends "nav.html" %}
 {% block content %}
 
+<style>
+
+.card {
+  opacity:0.8;
+  
+}
+.card:hover {
+
+  opacity:1;
+  transform:scale(1.1,1.1);
+
+}
+
+</style>
 <div class="container-fluid">
 <div class="row">
 
@@ -9,25 +23,29 @@
   <h1 style="color:white;z-index:99;padding-top:20%;">Water Security can only be achieved through Water Management</h1>
 
 </div>
+
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-      <div class="card" style="z-index:99;">
-          
+       <a href='signin_admin'>
+      <div class="card" id="expand" style="z-index:99;">
           <div class="card-body">
              Admin Panel is designed to provide a proper interface for understanding the water consumption in particular regions and for predictions.
           </div>
-          <a href='signin_admin' class="btn btn-primary card-title">Go to Admin Panel</a>
-      </div>
+          <button class="btn btn-info card-title">Go to Admin Panel</button>
+      </div></a>
   </div>
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-      <div class="card" style="z-index:99;">
-          
+      <a href='signin_user'>
+      <div class="card" id="expand" style="z-index:99;">
           <div class="card-body">
              Public Panel is designed to provide a proper interface for the individuals to check their individual water consumption and the quality of the water they recieved over the period from which water meter was installed.
           </div>
-          <a href='signin_user' class="btn btn-primary">Go to Public Panel</a>
+          <button class="btn btn-info card-title">Go to Public Panel</button>
+
       </div>
-  </div>
+  </div></a>
 </div>
+
+
 </div>
 {% endblock %}

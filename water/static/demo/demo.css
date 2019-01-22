@@ -1,3 +1,5 @@
+
+
 .tim-typo {
   padding-left: 25%;
   margin-bottom: 40px;
@@ -60,3 +62,12 @@
   height: calc(100vh - 70px);
   margin-top: 70px;
 }
+
+#expand {
+  transition:width ease 2s;
+}
+
+#expand:hover {
+      opacity:1;
+}
+

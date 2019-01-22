@@ -202,6 +202,8 @@ def userland(request):
 	else:
 		return render(request,'sign_in_user.html')
 
+
+
 def modelResult(request):
 
 	print("in")

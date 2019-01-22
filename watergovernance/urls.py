@@ -24,7 +24,7 @@ urlpatterns = [
     path('signin_user',views.signin_user),
     path('aboutUs',views.aboutUs),
     path('contact',views.contact),
-    path('admin/',views.adminland),
+    path('adminn',views.adminland),
     path('user',views.userland),
     path('adminModel',views.modelResult)
 ]
