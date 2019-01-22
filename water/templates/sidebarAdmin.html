@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="{% static 'img/water-logo.png' %}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Material Dashboard by Creative Tim
+    Water E-Governance
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -17,6 +17,15 @@
   <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />
+
+  <!--
+
+  <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script> -->
+
+<script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
 </head>
 
 <body class="">
@@ -34,61 +43,44 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="{% static 'dashboard.html' %}">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+          <li class="nav-item">
+            <a class="nav-link" href='adminland'>
+              <i class="material-icons">library_books</i>
+              <p>Generate Dataset</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="{% static 'user.html' %}">
-              <i class="material-icons">person</i>
+            <a class="nav-link" href='getModel'>
+              <i class="material-icons">library_books</i>
+              <p>Get Model</p>
+            </a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href='uploadModel'>
+              <i class="material-icons">bubble_chart</i>
               <p>Prediction</p>
             </a>
           </li>
+
           <li class="nav-item ">
-            <a class="nav-link" href="{% static 'tables.html' %}">
-              <i class="material-icons">content_paste</i>
+            <a class="nav-link" href='alerts'>
+              <i class="material-icons">notifications</i>
               <p>Alerts</p>
             </a>
           </li>
-          <!--<li class="nav-item ">
-            <a class="nav-link" href="{% static 'typography.html' %}">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
+          <li class="nav-item ">
+            <a class="nav-link" href='addAdmin'>
+              <i class="material-icons">person</i>
+              <p>Add Admin</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="{% static 'icons.html' %}">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
+            <a class="nav-link" href='userInfo'>
+              <i class="material-icons">person</i>
+              <p>User Info</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% static 'map.html' %}">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% static 'notifications.html' %}">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% static 'rtl.html' %}">
-              <i class="material-icons">language</i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="nav-item active-pro ">
-            <a class="nav-link" href="{% static 'upgrade.html' %}">
-              <i class="material-icons">unarchive</i>
-              <p>Upgrade to PRO</p>
-            </a>
-          </li>
-        </ul>-->
       </div>
     </div>
     <div class="main-panel">
@@ -105,8 +97,6 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form" method="post" action="admin">
-              {% csrf_token %}
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -114,7 +104,6 @@
                   <div class="ripple-container"></div>
                 </button>
               </div>
-            </form >
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
@@ -151,7 +140,7 @@
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout">Log out</a>
                 </div>
               </li>
             </ul>
