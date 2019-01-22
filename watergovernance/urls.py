@@ -18,13 +18,44 @@ from django.urls import path
 from water import views
 
 urlpatterns = [
-    path('',views.index),
-    path('signup',views.signup),
+
+    #Home Page
+    path(r'',views.index),
+
+    #about us and contact us
+    path(r'aboutUs',views.aboutUs),
+    path(r'contact',views.contact),
+
+    # User Registeration
+
+    path(r'signup',views.signup),
     path('signin_admin',views.signinadmin),
     path('signin_user',views.signin_user),
-    path('aboutUs',views.aboutUs),
-    path('contact',views.contact),
-    path('admin/',views.adminland),
+
+
+    # Admin Pages
+
+    path(r'admin/',views.adminland),
+    path('admin/modelResult',views.modelResult),
+    path('admin/alerts',views.adminAlerts),
+    path('admin/addAdmin',views.addAdmin),
+    path('admin/userInfo',views.userInfo),
+    path('admin/getModel',views.getModel),
+    path('admin/uploadModel',views.uploadModel),
+    path('admin/logout',views.admin_logout),
+
+
+    path(r'admin/adminland',views.adminland),
+    path('modelResult',views.modelResult),
+    path('alerts',views.adminAlerts),
+    path('addAdmin',views.addAdmin),
+    path('userInfo',views.userInfo),
+    path('getModel',views.getModel),
+    path('uploadModel',views.uploadModel),
+    path('logout',views.admin_logout),
+
+
+    # User Pages
+
     path('user',views.userland),
-    path('admin/adminModel',views.modelResult)
 ]

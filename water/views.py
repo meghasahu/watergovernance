@@ -4,6 +4,8 @@ import pyrebase
 from django.contrib import messages
 import csv
 
+from graphos.sources.simple import SimpleDataSource
+
 #Package for model
 
 from statsmodels.tsa.arima_model import ARIMA,ARIMAResults
@@ -29,6 +31,10 @@ import PIL.Image
 
 import base64
 
+import water.arima as arima
+import water.modelTest as modelTest
+from graphos.renderers.yui import LineChart
+
 # connecting to firebase
 
 #configuration setting 
@@ -47,6 +53,13 @@ db = firebase.database()
 #Rendering Home Page
 def index(request):
 	return render(request,'index.html')
+
+
+def aboutUs(request):
+	return render(request,'about_us.html')
+
+def contact(request):
+	return render(request,'contact_us.html')
 
 # Registeration storing data in firebase
 def signup(request):
@@ -103,6 +116,7 @@ def signinadmin(request):
 			# comparing fetched password and entered password
 			if(value["password"] == password):
 				print("rendering")
+				request.session['adminname'] = email
 				messages.success(request,"Login successful")
 				return render(request,'admin.html')
 
@@ -147,60 +161,152 @@ def signin_user(request):
 
 	return render(request,'sign_in_user.html')
 
-def aboutUs(request):
-	return render(request,'about_us.html')
+# Admin Functions
 
-def contact(request):
-	return render(request,'contact_us.html')
+def getfile(request):  
+    response = HttpResponse(content_type='text/csv')  
+    response['Content-Disposition'] = 'attachment; filename="file.csv"'  
+    writer = csv.writer(response)  
+    writer.writerow(['1001', 'John', 'Domil', 'CA'])  
+    writer.writerow(['1002', 'Amit', 'Mukharji', 'LA', '"Testing"'])  
+    return response  
+
 
 def adminland(request):
 
-	if request.method == "POST":
-		startdate = request.POST.get('startingyear')
-		enddate = request.POST.get('endingyear')
+	if request.session.has_key('adminname'):
 
-		data = list()
+		if request.method == "POST":
+			startdate = request.POST.get('startingyear')
+			enddate = request.POST.get('endingyear')
 
-		print(startdate)
-		print(enddate)
+			data = list()
 
-		# fetching data from start date to end date
-		#val = db.child('consumption').order_by_child('date').equal_to('13-01-2019').get()
+			print(startdate)
+			print(enddate)
 
-		val = db.child('consumption').get().val()
+			# fetching data from start date to end date
+			#val = db.child('consumption').order_by_child('date').equal_to('13-01-2019').get()
+
+			val = db.child('consumption').get().val()
 
 
-		#print(val.key())
+			print(val.key())
 
-		"""
-		for vibe_dict in val.items(): # dict is a Python keyword, so it's a bad choice for a variable!
-			print(vibe_dict[0])
-			result = db.child('consumption').child(vibe_dict[0]).order_by_child('date').equal_to('13-01-2019').get().val()
+			"""
+			for vibe_dict in val.items(): # dict is a Python keyword, so it's a bad choice for a variable!
+				print(vibe_dict[0])
+				result = db.child('consumption').child(vibe_dict[0]).order_by_child('date').equal_to('13-01-2019').get().val()
 
-			for consumption in val.each():
-				v = consumption.val()
-				data.append([v])
-				print("printing v")
-				print(data)
+				for consumption in val.each():
+					v = consumption.val()
+					data.append([v])
+					print("printing v")
+					print(data)
 
-		
-		#start_at('13-01-2019').end_at('14-01-2019')
+			
+			#start_at('13-01-2019').end_at('14-01-2019')
 
-		
-		
+			
+			
 
-		
-		# creating csv file and saving fetched data into it
-		with open('new.csv','w',newline='') as file1:
-			writer = csv.writer(file1)
-			writer.writerows(data)
+			
+			# creating csv file and saving fetched data into it
+			with open('new.csv','w',newline='') as file1:
+				writer = csv.writer(file1)
+				writer.writerows(data)
 
-		print(val)
-		"""		
-		return render(request,'modelResult.html')
+			print(val)
+			"""	
+
+			getfile()
+			#return render(request,'modelResult.html')
+		else:
+			return render(request,'admin.html')
+
 	else:
-		return render(request,'admin.html')
+		return render(request,'sign_in_admin.html')
 
+def uploadModel(request):
+	if request.session.has_key('adminname'):
+		return render(request, 'uploadModel.html')
+	else:
+		return render(request,'sign_in_admin.html')
+
+
+
+def modelResult(request):
+
+	if request.session.has_key('adminname'):
+
+		if request.method == "POST":
+
+			modelFile = request.POST.get("fileupload")
+			content = arima.arimaCall(request,modelFile)
+			return render(request, 'table.html', content)
+	else:
+		return render(request,'sign_in_admin.html')
+
+def getModel(request):
+
+	if request.session.has_key('adminname'):
+
+		if request.method == "POST":
+
+			print("getting")
+
+			file = request.POST.get("fileupload")
+
+			modelTest.modelT(request,file)
+
+			message = "Your Model has been successfully Trained for the dataset"
+			return render(request,'getModel.html',{"msg":message})
+		else:
+			message = " "
+			return render(request,'getModel.html',{"msg":message})
+
+	else:
+		return render(request,'sign_in_admin.html')
+
+def addAdmin(request):
+	if request.session.has_key('adminname'):
+		if request.method == "POST":
+			email = request.POST.get("email")
+			name = request.POST.get("name")
+			phone = request.POST.get("phone")
+			password = request.POST.get("password")
+
+			data = {"email":email,"name":name,"phone":phone,"password":password}
+
+			db.child("admin").push(data)
+			return render(request,'add_admin.html')
+
+		else:
+			return render(request,'add_admin.html')
+
+	else:
+		return render(request,'sign_in_admin.html')
+
+def adminAlerts(request):
+	if request.session.has_key('adminname'):
+
+
+		return render(request,'admin_alerts.html')
+
+	else:
+		return render(request,'sign_in_admin.html')
+
+def userInfo(request):
+	if request.session.has_key('adminname'):
+
+
+		return render(request,'check_user.html')
+
+	else:
+		return render(request,'sign_in_admin.html')
+
+
+# User Functions
 
 def userland(request):
 	if request.session.has_key('username'):
@@ -209,136 +315,9 @@ def userland(request):
 	else:
 		return render(request,'sign_in_user.html')
 
-def modelResult(request):
-
-	print("in")
-
-	series = Series.from_csv('water.csv', header=0)
-	split_point = len(series) - 10
-	dataset, validation = series[0:split_point], series[split_point:]
-	print('Dataset %d, Validation %d' % (len(dataset), len(validation)))
-	dataset.to_csv('dataset.csv')
-	validation.to_csv('validation.csv')
-
-	
-	# load data
-	series = Series.from_csv('dataset.csv')
-	# prepare data
-
-
-	X = series.values
-	X = X.astype('float32')
-	train_size = int(len(X) * 0.50)
-	train, test = X[0:train_size], X[train_size:]
-	# walk-forward validation
-	history = [x for x in train]
-	predictions = list()
-	for i in range(len(test)):
-		# predict
-		yhat = history[-1]
-		predictions.append(yhat)
-		# observation
-		obs = test[i]
-		history.append(obs)
-		print('>Predicted=%.3f, Expected=%3.f' % (yhat, obs))
-	# report performance
-	mse = mean_squared_error(test, predictions)
-	rmse = sqrt(mse)
-	print('RMSE: %.3f' % rmse)
-
-	fig = Figure()
-	ax = fig.add_subplot(111)
-	data_df = pandas.read_csv("water.csv")
-	data_df = pandas.DataFrame(data_df)
-	data_df.plot(ax=ax)
-	canvas = FigureCanvas(fig)
-	fig.savefig('water/static/img/test.png')
-	response = HttpResponse( content_type = 'image/png')
-	canvas.print_png(response)
-
-
-	#return response
-
-	"""
-	series = Series.from_csv('water.csv')
-	res = series.plot()
-	#pyplot.show()
-
-	print("hey")
-
-	
-	buffer = io.BytesIO()
-	canvas = pyplot.get_current_fig_manager().canvas
-	canvas.draw()
-	#graphIMG = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
-
-	graphIMG = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
-	graphIMG.save(buffer,"PNG")
-	pyplot.close()
-	graph = base64.b64encode(buffer.getvalue())
-
-	
-	#return response
-
-	def __getnewargs__(self):
-		return ((self.endog),(self.k_lags, self.k_diff, self.k_ma))
-    #return HttpResponse(buffer.getvalue(), content_type="image/png")
-    ARIMA.__getnewargs__ = __getnewargs__
- 
-# load data
-	series = Series.from_csv('dataset.csv')
-	# prepare data
-	X = series.values
-	X = X.astype('float32')
-	# fit model
-	model = ARIMA(X, order=(2,1,0))
-	model_fit = model.fit(trend='nc', disp=0)
-	# bias constant, could be calculated from in-sample mean residual
-	bias = 1.081624
-	# save model
-	model_fit.save('model.pkl')
-	numpy.save('model_bias.npy', [bias])
-
-	model_fit = ARIMAResults.load('model.pkl')
-	bias = numpy.load('model_bias.npy')
-	yhat = bias + float(model_fit.forecast()[0])
-	print('Predicted: %.3f' % yhat)
-
-	# final
-
-	dataset = Series.from_csv('dataset.csv')
-	X = dataset.values.astype('float32')
-	history = [x for x in X]
-	validation = Series.from_csv('validation.csv')
-	y = validation.values.astype('float32')
-	# load model
-	model_fit = ARIMAResults.load('model.pkl')
-	bias = numpy.load('model_bias.npy')
-	# make first prediction
-	predictions = list()
-	yhat = bias + float(model_fit.forecast()[0])
-	predictions.append(yhat)
-	history.append(y[0])
-	print('>Predicted=%.3f, Expected=%3.f' % (yhat, y[0]))
-# rolling forecasts
-	for i in range(1, len(y)):
-		# predict
-		model = ARIMA(history, order=(2,1,0))
-		model_fit = model.fit(trend='nc', disp=0)
-		yhat = bias + float(model_fit.forecast()[0])
-		predictions.append(yhat)
-		# observation
-		obs = y[i]
-		history.append(obs)
-		print('>Predicted=%.3f, Expected=%3.f' % (yhat, obs))
-# report performance
-	mse = mean_squared_error(y, predictions)
-	rmse = sqrt(mse)
-	print('RMSE: %.3f' % rmse)
-	pyplot.plot(y)
-	pyplot.plot(predictions, color='red')
-	pyplot.show()
-	"""
-
-
-	return render(request,'modelResult.html')
+def admin_logout(request):
+	try:
+		del request.session['adminname']
+	except:
+		pass
+	return render(request,'index.html')
