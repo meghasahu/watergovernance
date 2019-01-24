@@ -31,11 +31,11 @@ urlpatterns = [
     path(r'signup',views.signup),
     path('signin_admin',views.signinadmin),
     path('signin_user',views.signin_user),
-<<<<<<< HEAD
+
     path('aboutUs',views.aboutUs),
     path('contact',views.contact),
     path('adminn',views.adminland),
-=======
+
 
 
     # Admin Pages
@@ -62,6 +62,6 @@ urlpatterns = [
 
     # User Pages
 
->>>>>>> da4ab5ed0dfc58d0f8a5799e5e690ec2dc529585
+
     path('user',views.userland),
 ]

@@ -56,7 +56,7 @@ def index(request):
 
 
 def aboutUs(request):
-	return render(request,'about_us.html')
+	return render(request,'about.html')
 
 def contact(request):
 	return render(request,'contact_us.html')
@@ -315,7 +315,7 @@ def userland(request):
 	else:
 		return render(request,'sign_in_user.html')
 
-<<<<<<< HEAD
+
 
 
 def modelResult(request):
@@ -389,11 +389,10 @@ def modelResult(request):
     #return HttpResponse(buffer.getvalue(), content_type="image/png")
 
 	return render(request,'modelResult.html')
-=======
+
 def admin_logout(request):
 	try:
 		del request.session['adminname']
 	except:
 		pass
 	return render(request,'index.html')
->>>>>>> da4ab5ed0dfc58d0f8a5799e5e690ec2dc529585
