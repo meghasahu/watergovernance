@@ -16,7 +16,7 @@
           <div class="card-body">
              Admin Panel is designed to provide a proper interface for understanding the water consumption in particular regions and for predictions.
           </div>
-          <a href='signin_admin' class="btn btn-primary card-title">Go to Admin Panel</a>
+          <a href="{% url 'water:signin_admin' %}" class="btn btn-primary card-title">Go to Admin Panel</a>
       </div>
   </div>
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
@@ -25,7 +25,7 @@
           <div class="card-body">
              Public Panel is designed to provide a proper interface for the individuals to check their individual water consumption and the quality of the water they recieved over the period from which water meter was installed.
           </div>
-          <a href='signin_user' class="btn btn-primary">Go to Public Panel</a>
+          <a href="{% url 'water:signin_user' %}" class="btn btn-primary">Go to Public Panel</a>
       </div>
   </div>
 </div>

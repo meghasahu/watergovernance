@@ -56,6 +56,7 @@ def index(request):
 
 
 def aboutUs(request):
+	print("HIII")
 	return render(request,'about_us.html')
 
 def contact(request):
@@ -117,7 +118,6 @@ def signinadmin(request):
 			if(value["password"] == password):
 				print("rendering")
 				request.session['adminname'] = email
-				messages.success(request,"Login successful")
 				return render(request,'admin.html')
 
 			else:
