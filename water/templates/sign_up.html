@@ -62,7 +62,7 @@ input[type=submit] {
                   <p class="card-category">Complete your profile</p>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="signup">
+                  <form method="post" action="{% url 'water:signup' %}">
                     {% csrf_token %}
                    
                   <div class="row">

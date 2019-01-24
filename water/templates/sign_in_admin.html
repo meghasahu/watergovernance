@@ -62,7 +62,7 @@ input[type=submit] {
                   <p class="card-category">Enter Your Details</p>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="signin_admin">
+                  <form method="post" action="{% url 'water:signin_admin' %}">
                     {% csrf_token %}
                    
                   <div class="row">

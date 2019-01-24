@@ -45,20 +45,12 @@ urlpatterns = [
     url(r'^userInfo/',views.userInfo,name="userInfo"),
     url(r'^getModel/',views.getModel,name="getModel"),
     url(r'^uploadModel/',views.uploadModel,name="uploadModel"),
-    url(r'^logout/',views.admin_logout,name="logout"),
-
-
-    # url(r'admin/adminland',views.adminland),
-    # url('modelResult',views.modelResult),
-    # url('alerts',views.adminAlerts),
-    # url('addAdmin',views.addAdmin),
-    # url('userInfo',views.userInfo),
-    # url('getModel',views.getModel),
-    # url('uploadModel',views.uploadModel),
-    # url('logout',views.admin_logout),
+    url(r'^adminlogout/',views.admin_logout,name="adminlogout"),
 
 
     # User Pages
 
     url(r'^user/',views.userland,name="user"),
+    url(r'^userlogout/',views.user_logout,name="userlogout"),
+    url(r'^useralerts/',views.user_alerts,name="useralerts"),
 ]

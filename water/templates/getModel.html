@@ -10,7 +10,7 @@
                   <h4 class="card-title">Upload Dataset</h4>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="getModel">
+                  <form method="post" action="{% url 'water:getModel' %}">
                     {% csrf_token %}                
                   <div class="row">
                       <div class="col-lg-12">
