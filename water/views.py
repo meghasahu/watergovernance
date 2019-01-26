@@ -76,7 +76,9 @@ def signup(request):
 		"country":country,"city":city,"state":state,"pincode":pincode ,"password":password,"sensorId":sensor}
 		db.child("1000").child(uniqueid).set(data)
 
-	return render(request,'sign_up.html')
+		return render(request,'user.html')
+	else:
+		return render(request,'sign_up.html')
 
 # signing as admin
 def signinadmin(request):
@@ -225,7 +227,7 @@ def adminland(request):
 		return render(request,'sign_in_admin.html')
 
 def uploadModel(request):
-	if request.skession.has_key('adminname'):
+	if request.session.has_key('adminname'):
 		return render(request, 'uploadModel.html')
 	else:
 		return render(request,'sign_in_admin.html')
