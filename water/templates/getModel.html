@@ -10,14 +10,19 @@
                   <h4 class="card-title">Upload Dataset</h4>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="getModel">
+                  <form method="post" action="{% url 'water:getModel' %}">
                     {% csrf_token %}                
                   <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <input type="file" class="form-control" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload" class="bmd-label-floating"> Select a file to upload</label>
-                        </div>
-                      </div>
+                      <div class="col-lg-12">
+                      <div class="form-group form-file-upload form-file-multiple">
+                          <input type="file" class="form-control" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload" class="bmd-label-floating">  Select a file to upload   </label>
+                                  <span class="input-group-btn">
+            <button type="button" class="btn btn-fab btn-round btn-primary">
+                <i class="material-icons">attach_file</i>
+            </button>
+        </span>
+             </div>
+              </div>
                     </div>
                     <button type="submit" class="btn btn-primary pull-center">Upload</button>
                     <div class="clearfix"></div>

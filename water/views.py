@@ -3,26 +3,15 @@ from django.http import HttpResponse
 import pyrebase
 from django.contrib import messages
 import csv
-
 from graphos.sources.simple import SimpleDataSource
-
 #Package for model
-
 from statsmodels.tsa.arima_model import ARIMA,ARIMAResults
 from scipy.stats import boxcox
 import numpy
 from sklearn.metrics import mean_squared_error
 from math import sqrt
-
-from matplotlib import pyplot
-
 import pandas
 from pandas import Series
-
-from matplotlib import pyplot
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-from matplotlib.dates import DateFormatter
 import io
 
 # installed pillow but for old compatibility they use PIL only
@@ -56,7 +45,12 @@ def index(request):
 
 
 def aboutUs(request):
+<<<<<<< HEAD
 	return render(request,'about.html')
+=======
+	print("HIII")
+	return render(request,'about_us.html')
+>>>>>>> 8a30fe8b23e9d6c789bfc35b2ef3499ceeb5451e
 
 def contact(request):
 	return render(request,'contact_us.html')
@@ -86,7 +80,9 @@ def signup(request):
 		"country":country,"city":city,"state":state,"pincode":pincode ,"password":password,"sensorId":sensor}
 		db.child("1000").child(uniqueid).set(data)
 
-	return render(request,'sign_up.html')
+		return render(request,'user.html')
+	else:
+		return render(request,'sign_up.html')
 
 # signing as admin
 def signinadmin(request):
@@ -117,7 +113,6 @@ def signinadmin(request):
 			if(value["password"] == password):
 				print("rendering")
 				request.session['adminname'] = email
-				messages.success(request,"Login successful")
 				return render(request,'admin.html')
 
 			else:
@@ -133,6 +128,7 @@ def signin_user(request):
 	if request.method == "POST":
 		email = request.POST.get('username')
 		password = request.POST.get('password')
+		print("user")
 
 		#val = db.child('1000400074').order_by_child('email').equal_to('2016.megha.sahu@ves.ac.in').get()
 		#print(val.order_by_child('password').get())
@@ -152,7 +148,7 @@ def signin_user(request):
 			if(value["password"] == password):
 				print("rendering")
 				request.session['username'] = email
-				messages.success(request,"Login successful")
+				#messages.success(request,"Login successful")
 				return render(request,'user.html')
 
 			else:
@@ -177,6 +173,8 @@ def adminland(request):
 	if request.session.has_key('adminname'):
 
 		if request.method == "POST":
+
+			
 			startdate = request.POST.get('startingyear')
 			enddate = request.POST.get('endingyear')
 
@@ -188,10 +186,19 @@ def adminland(request):
 			# fetching data from start date to end date
 			#val = db.child('consumption').order_by_child('date').equal_to('13-01-2019').get()
 
-			val = db.child('consumption').get().val()
+			#fetching all the users in consumption
+			val = db.child('1000').get()
+
+			for allkey in val.each():
+				keys = allkey.key()
+
+			for key in keys:
+				val = db.child('consumption').child(key).order_by_child('date').start_at(startdate).end_at(enddate).get()
+
+				print(val)
 
 
-			print(val.key())
+			
 
 			"""
 			for vibe_dict in val.items(): # dict is a Python keyword, so it's a bad choice for a variable!
@@ -218,11 +225,7 @@ def adminland(request):
 
 			print(val)
 			"""	
-
-			getfile()
-			#return render(request,'modelResult.html')
-		else:
-			return render(request,'admin.html')
+		return render(request,'admin.html')
 
 	else:
 		return render(request,'sign_in_admin.html')
@@ -296,6 +299,14 @@ def adminAlerts(request):
 	else:
 		return render(request,'sign_in_admin.html')
 
+
+def admin_logout(request):
+	try:
+		del request.session['adminname']
+	except:
+		pass
+	return render(request,'index.html')
+
 def userInfo(request):
 	if request.session.has_key('adminname'):
 
@@ -310,11 +321,19 @@ def userInfo(request):
 
 def userland(request):
 	if request.session.has_key('username'):
-		return render(request,'user.html')
 
+		return render(request,'user.html')
 	else:
 		return render(request,'sign_in_user.html')
 
+def user_alerts(request):
+	if request.session.has_key('username'):
+
+		return render(request,'user_alerts.html')
+	else:
+		return render(request,'sign_in_user.html')
+
+<<<<<<< HEAD
 
 
 
@@ -391,8 +410,11 @@ def modelResult(request):
 	return render(request,'modelResult.html')
 
 def admin_logout(request):
+=======
+def user_logout(request):
+>>>>>>> 8a30fe8b23e9d6c789bfc35b2ef3499ceeb5451e
 	try:
-		del request.session['adminname']
+		del request.session['username']
 	except:
 		pass
 	return render(request,'index.html')
