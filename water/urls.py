@@ -31,7 +31,7 @@ urlpatterns = [
 
     # User Registeration
 
-    url(r'^signup/',views.signup+,name="signup"),
+    url(r'^signup/',views.signup,name="signup"),
     url(r'^signin_admin/',views.signinadmin,name="signin_admin"),
     url(r'^signin_user/',views.signin_user,name="signin_user"),
 
