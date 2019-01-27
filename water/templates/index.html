@@ -1,60 +1,333 @@
-{% extends "nav.html" %}
+{% extends "navbar.html" %}
 {% block content %}
 
-<style>
+<!--================ Home Banner Area =================-->
+  <section class="home_banner_area">
+    <div class="banner_inner d-flex align-items-center">
+      <div class="container">
+        <div class="banner_content row">
+          <div class="col-lg-12">
+            <h1 style="color:black">Join hands with us to save Water</h1>
+            <p style="color:black">Water Security can only be achieved through Water Management.</p>
+            <a class="main_btn mr-10" href="signup.html">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================ End Home Banner Area =================-->
 
-.card {
-  opacity:0.8;
   
-}
-.card:hover {
+  <br><br><br>
 
-  opacity:1;
-  transform:scale(1.1,1.1);
-
-}
-
-</style>
-<div class="container-fluid">
-<div class="row">
-
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-
-  <h1 style="color:white;z-index:99;padding-top:20%;">Water Security can only be achieved through Water Management</h1>
-
-</div>
-
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-       <a href='signin_admin'>
-      <div class="card" id="expand" style="z-index:99;">
-          <div class="card-body">
-             Admin Panel is designed to provide a proper interface for understanding the water consumption in particular regions and for predictions.
+  <!--================ About Myself Area =================-->
+  <section class="about_myself pad_bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pr-0">
+          <div class="about_img">
+            <img class="img-fluid w-100" src="img/india.png" height=555 width=650 alt="">
           </div>
-<<<<<<< HEAD
-          <button class="btn btn-info card-title">Go to Admin Panel</button>
-      </div></a>
-=======
-          <a href="{% url 'water:signin_admin' %}" class="btn btn-info">Go to Admin Panel</a>
-      </div>
->>>>>>> 8a30fe8b23e9d6c789bfc35b2ef3499ceeb5451e
-  </div>
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-      <a href='signin_user'>
-      <div class="card" id="expand" style="z-index:99;">
-          <div class="card-body">
-             Public Panel is designed to provide a proper interface for the individuals to check their individual water consumption and the quality of the water they recieved over the period from which water meter was installed.
+        </div>
+
+        <div class="col-lg-6 pl-0">
+          <div class="about_box">
+            <div class="section-title-wrap text-left">
+              <h1>About Us</h1>
+              <p>
+                Water E-Governance aims to monitor water consumptions of individuals and cluster the data to predict the yearly consumption of the area so as to practice to save water for the future generations.
+              </p>
+            </div>
+
+            <div class="activity">
+              <div class="row">
+                <div class="col-lg-6 col-md-6">
+                  <div class="activity_box">
+                    <div>
+                       <i class="lnr lnr-users"></i>  
+                    </div>
+                    <h3><span class="counter">163</span> M</h3>
+                    <p>People lack access to safe water</p>
+                  </div>
+                </div>
+
+                
+                <div class="col-lg-6 col-md-6">
+                  <div class="activity_box">
+                    <div>
+                      <i class="lnr lnr-users"></i>
+                    </div>
+                    <h3><span class="counter">210</span>M</h3>
+                    <p>People lack access to sanitation</p>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  <div class="activity_box">
+                    <div>
+                      <i class="lnr lnr-users"></i>
+                    </div>
+                    <h3 class="counter">3965</h3>
+                    <p>Total Volunteers</p>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                  <div class="activity_box">
+                    <div>
+                      <i class="lnr lnr-book"></i>
+                    </div>
+                    <h3 class="counter">1465</h3>
+                    <p>Total Project</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-<<<<<<< HEAD
-          <button class="btn btn-info card-title">Go to Public Panel</button>
-
-=======
-          <a href="{% url 'water:signin_user' %}" class="btn btn-info">Go to Public Panel</a>
->>>>>>> 8a30fe8b23e9d6c789bfc35b2ef3499ceeb5451e
+        </div>
       </div>
-  </div></a>
-</div>
+    </div>
+  </section>
+  <!--================ End About Myself Area =================-->
 
 
-</div>
+  <!--================ Start Feedback Area =================-->
+  <section class="feedback_area section_gap relative">
+    <div class="container">
+      <div class="row justify-content-center section-title-wrap">
+        <div class="col-lg-12">
+          <h1>Enjoy our Client’s Feedback</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+      </div>
+
+      <div class="feedback_contents justify-content-center align-items-center">
+        <div class="active-review-carusel owl-carousel">
+          <div class="row">
+            <div class="col-lg-6">
+              <img src="img/feedback-bg.jpg" alt="">
+            </div>
+
+            <div class="col-lg-6">
+              <div class="single-feedback-carusel">
+                <div class="d-flex flex-row">
+                  <h4 class="">Fannie Rowe</h4>
+                  <div class="star">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                  </div>
+                </div>
+                <p class="">
+                  Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can
+                  find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <img src="img/feedback-bg.jpg" alt="">
+            </div>
+
+            <div class="col-lg-6">
+              <div class="single-feedback-carusel">
+                <div class="d-flex flex-row">
+                  <h4 class="">Fannie Rowe</h4>
+                  <div class="star">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                  </div>
+                </div>
+                <p class="">
+                  Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can
+                  find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <img src="img/feedback-bg.jpg" alt="">
+            </div>
+
+            <div class="col-lg-6">
+              <div class="single-feedback-carusel">
+                <div class="d-flex flex-row">
+                  <h4 class="">Fannie Rowe</h4>
+                  <div class="star">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                  </div>
+                </div>
+                <p class="">
+                  Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can
+                  find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <img src="img/feedback-bg.jpg" alt="">
+            </div>
+
+            <div class="col-lg-6">
+              <div class="single-feedback-carusel">
+                <div class="d-flex flex-row">
+                  <h4 class="">Fannie Rowe</h4>
+                  <div class="star">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                  </div>
+                </div>
+                <p class="">
+                  Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can
+                  find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================ End Feedback Area =================-->
+
+  <!--================ Start Offered Services Area =================-->
+  <section class="service_area section_gap">
+    <div class="container">
+      <div class="row justify-content-center section-title-wrap">
+        <div class="col-lg-12">
+          <h1>Our Offered Services</h1>
+          <p>
+            Water E-Governance provides a number of services to the public, for an efficient way to conserve water, as well as provide facilities to every individual, whether rich or poor.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="single_service">
+            <span class="lnr lnr-rocket"></span>
+            <a href="#">
+              <h4>Consumption</h4>
+            </a>
+            <p>
+              Track how much water you have been consuming, and plan accordingly.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="single_service">
+            <span class="lnr lnr-heart-pulse"></span>
+            <a href="#">
+              <h4>Alerts</h4>
+            </a>
+            <p>
+              Get Alerts from us about your water usage.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="single_service">
+            <span class="lnr lnr-bug"></span>
+            <a href="#">
+              <h4></h4>
+            </a>
+            <p>
+              inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct women face higher conduct.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="single_service">
+            <span class="lnr lnr-users"></span>
+            <a href="#">
+              <h4>Family Planning</h4>
+            </a>
+            <p>
+              inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct women face higher conduct.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================ End Offered Services Area =================-->
+
+
+  <!--================ Start Appointment Area =================-->
+  <section class="appointment-area">
+    <div class="container">
+      <div class="row justify-content-between align-items-center appointment-wrap">
+        <div class="col-lg-5 col-md-6 appointment-left">
+          <h1>
+            Servicing Hours
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <ul class="time-list">
+            <li class="d-flex justify-content-between">
+              <span>Monday-Friday</span>
+              <span>08.00 am - 10.00 pm</span>
+            </li>
+            <li class="d-flex justify-content-between">
+              <span>Saturday</span>
+              <span>08.00 am - 10.00 pm</span>
+            </li>
+            <li class="d-flex justify-content-between">
+              <span>Sunday</span>
+              <span>08.00 am - 10.00 pm</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-6 col-md-6 pt-60 pb-60">
+          <div class="appointment-right">
+            <form class="form-wrap" action="#">
+              <h3 class="pb-20 text-center mb-20">Book an Appointment</h3>
+              <input type="text" class="form-control" name="name" placeholder="Patient Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Patient Name'">
+              <input type="text" class="form-control" name="phone" placeholder="Phone " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'">
+              <input type="email" class="form-control" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+              <input id="datepicker1" name="dop" class="dates form-control" placeholder="Date of Birth" type="text">
+              <div class="form-select" id="service-select">
+                <select>
+                  <option data-display="">Disease Type</option>
+                  <option value="1">Type One</option>
+                  <option value="2">Type Two</option>
+                  <option value="3">Type Three</option>
+                  <option value="4">Type Four</option>
+                </select>
+              </div>
+              <input id="datepicker2" class="dates form-control" placeholder="appointment Date" type="text">
+              <textarea name="messege" class="" rows="5" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"></textarea>
+              <div class="text-center confirm_btn_box">
+                <button class="main_btn text-uppercase">Confirm Booking</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================ End Appointment Area =================-->
+
+  <br><br>
+
 {% endblock %}

@@ -38,9 +38,9 @@ urlpatterns = [
     # url(r'^signin_admin/',views.signinadmin),
     # url(r'^signin_user/',views.signin_user),
 
-    path('aboutUs',views.aboutUs),
-    path('contact',views.contact),
-    path('adminn',views.adminland),
+#path('aboutUs',views.aboutUs),
+#path('contact',views.contact),
+#path('adminn',views.adminland),
 
 
 
@@ -70,9 +70,7 @@ urlpatterns = [
 
     # url(r'^user/',views.userland),
 
-<<<<<<< HEAD
 
-    path('user',views.userland),
-]
-=======
->>>>>>> 8a30fe8b23e9d6c789bfc35b2ef3499ceeb5451e
+
+#path('user',views.userland),
+

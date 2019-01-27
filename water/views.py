@@ -45,15 +45,13 @@ def index(request):
 
 
 def aboutUs(request):
-<<<<<<< HEAD
+
 	return render(request,'about.html')
-=======
-	print("HIII")
-	return render(request,'about_us.html')
->>>>>>> 8a30fe8b23e9d6c789bfc35b2ef3499ceeb5451e
+
+
 
 def contact(request):
-	return render(request,'contact_us.html')
+	return render(request,'contact.html')
 
 # Registeration storing data in firebase
 def signup(request):
@@ -82,7 +80,7 @@ def signup(request):
 
 		return render(request,'user.html')
 	else:
-		return render(request,'sign_up.html')
+		return render(request,'signup.html')
 
 # signing as admin
 def signinadmin(request):
@@ -117,10 +115,10 @@ def signinadmin(request):
 
 			else:
 				messages.warning(request,"Login Failed")
-				return render(request,'sign_in_admin.html')
+				return render(request,'adminpanel.html')
 
 
-	return render(request,'sign_in_admin.html')
+	return render(request,'adminpanel.html')
 
 #signing in as user
 def signin_user(request):
@@ -153,9 +151,9 @@ def signin_user(request):
 
 			else:
 				messages.warning(request,"Login Failed")
-				return render(request,'sign_in_user.html')
+				return render(request,'publicpanel.html')
 
-	return render(request,'sign_in_user.html')
+	return render(request,'publicpanel.html')
 
 # Admin Functions
 
@@ -333,7 +331,7 @@ def user_alerts(request):
 	else:
 		return render(request,'sign_in_user.html')
 
-<<<<<<< HEAD
+
 
 
 
@@ -410,9 +408,14 @@ def modelResult(request):
 	return render(request,'modelResult.html')
 
 def admin_logout(request):
-=======
+	try:
+		del request.session['username']
+	except:
+		pass
+	return render(request,'index.html')
+
 def user_logout(request):
->>>>>>> 8a30fe8b23e9d6c789bfc35b2ef3499ceeb5451e
+
 	try:
 		del request.session['username']
 	except:
