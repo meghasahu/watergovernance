@@ -10,6 +10,7 @@ from scipy.stats import boxcox
 import numpy
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+
 import pandas
 from pandas import Series
 import io
@@ -19,6 +20,8 @@ import PIL
 import PIL.Image
 
 import base64
+
+
 
 import water.arima as arima
 import water.modelTest as modelTest
@@ -39,6 +42,9 @@ config = {
 
 firebase = pyrebase.initialize_app(config);
 db = firebase.database()
+
+
+
 
 #Rendering Home Page
 def index(request):
