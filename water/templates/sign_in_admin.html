@@ -58,18 +58,18 @@ input[type=submit] {
             <div class="col">
               <div class="card" >
                 <div class="card-header card-header-info">
-                  <h4 class="card-title">Log In as User</h4>
+                  <h4 class="card-title">Log In as Admin</h4>
                   <p class="card-category">Enter Your Details</p>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="{% url 'water:signin_user' %}">
+                  <form method="post" action="{% url 'water:signin_admin' %}">
                     {% csrf_token %}
                    
                   <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email Id</label>
-                          <input type="email" name="username" class="form-control" required="true">
+                          <input type="email" name="email" class="form-control" required="true">
                         </div>
                       </div>
                     </div>

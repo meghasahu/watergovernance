@@ -1,0 +1,27 @@
+{% extends 'sidebarAdmin.html' %}
+{% block admin %}
+<br>
+<br>
+<br>
+        <div class="container-fluid">
+              <div class="card" >
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Upload Model</h4>
+                </div>
+                <div class="card-body">
+                  <form method="post" action="{% url 'water:cleanDataset' %}">
+                    {% csrf_token %}                
+                  <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="file" class="form-control" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload" class="bmd-label-floating"> Select Dataset to upload</label>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-center">Upload</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+{% endblock %}

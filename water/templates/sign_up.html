@@ -1,14 +1,11 @@
-{% extends "navbar.html" %}
-{% load static %}
-
+{% extends "nav.html" %}
 {% block content %}
 
 <style type="text/css">
 	
-
+	* { box-sizing: border-box; }
 body {
   font: 16px Arial; 
-
 }
 .autocomplete {
   /*the container must be positioned relative:*/
@@ -54,24 +51,19 @@ input[type=submit] {
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }
-
 </style>
-
-	<br><br><br><br><br><br>
-
-	<!--================ Procedure Category Area =================-->
-    <br><br><br>
-	<div class="container">
-		<div class="card" >
-                <div class="card-header card-header-info" style="background-color:lightblue">
-                  <h4 class="card-title">Sign Up</h4>
+<div class="content content-center">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="card" >
+                <div class="card-header card-header-info">
+                  <h4 class="card-title">Edit Profile</h4>
                   <p class="card-category">Complete your profile</p>
                 </div>
-
                 <div class="card-body">
-                 <form method="post" action="{% url 'water:signup' %}">
+                  <form method="post" action="{% url 'water:signup' %}">
                     {% csrf_token %}
-              
                    
                   <div class="row">
                       <div class="col-md-12">
@@ -83,7 +75,7 @@ input[type=submit] {
                     </div>
 
 
-                   <div class="row">
+                    <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email address</label>
@@ -91,7 +83,6 @@ input[type=submit] {
                         </div>
                       </div>
                   </div>
-
                   <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
@@ -115,26 +106,23 @@ input[type=submit] {
                         <div class="form-group">
                       
                           <label class="bmd-label-floating">Country</label>
-                          <input id="myInput" type="text" name="myCountry" class="form-control" value="India" disabled="true">
+                          <input type="text" name="myCountry" class="form-control" value="India" disabled="true">
                         </div>
                       </div>
 
-                       <div class="col-md-6">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">State</label>
                           <input id="myInput" type="text" name="state" class="form-control">
                         </div>
                       </div>
+                    </div>
 
-
-                     </div>
-
-
-                      <div class="row">
+            <div class="row">
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">City</label>
+                          <label class="bmd-label-floating">Smart City</label>
                           <input type="text" name="city" class="form-control" id="myCity">
                         </div>
                       </div>
@@ -144,7 +132,7 @@ input[type=submit] {
                         <div class="form-group">
                         	
                           <label class="bmd-label-floating">Pin Code</label>
-                          <input id="myInput" type="text" name="pincode" class="form-control">
+                          <input id="myInput" type="text" name="pincode" class="form-control" id="myPincode">
                         </div>
                       </div>
                   
@@ -173,20 +161,31 @@ input[type=submit] {
                       </div>
                     
                     </div>
-                    <center><input type="submit" class="genric-btn info circle e-large" value="Register"></center>
+             
+             
+                    <!--<div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>About Me</label>
+                          <div class="form-group">
+                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                            <textarea class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                    <button type="submit" class="btn btn-info pull-center">Update Profile</button>
                     <div class="clearfix"></div>
-                   </form>
+                  </form>
                 </div>
-
-
+              </div>
+            </div>
+              </div>
+            </div>
+          </div>
         </div>
-		
-	</div>
-	<br><br><br>
-	<!--================ End Procedure Category Area =================-->
-
-	
-	<script>
+      </div>
+<script>
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -295,8 +294,6 @@ var cities = ['Thane', 'Kalyan-Dombivali', 'Nashik', 'Amravati', 'Solapur', 'Nag
 autocomplete(document.getElementById("myCity"),cities);
 autocomplete(document.getElementById("myInput"), countries);
 </script>
-</body>
 
-</html>
 
 {% endblock %}

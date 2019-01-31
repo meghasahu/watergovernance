@@ -6,20 +6,20 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" href="img/favicon.png" type="image/png">
+	<link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
 	<title>Hospice Medical</title>
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="{% static 'css2/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 	<link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
-	<link rel="stylesheet" href="{% static 'css2/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 	<link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
 	<link rel="stylesheet" href="{% static 'vendors/lightbox/simpleLightbox.css' %}">
 	<link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}">
 	<link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}">
 	<link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}">
 	<!-- main css -->
-	<link rel="stylesheet" href="{% static 'css2/style.css' %}">
-	<link rel="stylesheet" href="{% static 'css2/responsive.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 </head>
 
 <body>
@@ -31,22 +31,22 @@
 				<div class="float-left">
 					<ul class="left_side">
 						<li>
-							<a href="login.html">
+							<a href="{% url 'home' %}">
 								<i class="fa fa-facebook-f"></i>
 							</a>
 						</li>
 						<li>
-							<a href="login.html">
+							<a href="{% url 'home' %}">
 								<i class="fa fa-twitter"></i>
 							</a>
 						</li>
 						<li>
-							<a href="login.html">
+							<a href="{% url 'home' %}">
 								<i class="fa fa-dribbble"></i>
 							</a>
 						</li>
 						<li>
-							<a href="login.html">
+							<a href="{% url 'home' %}">
 								<i class="fa fa-behance"></i>
 							</a>
 						</li>
@@ -55,13 +55,13 @@
 				<div class="float-right">
 					<ul class="right_side">
 						<li>
-							<a href="login.html">
+							<a href="{% url 'home' %}">
 								<i class="lnr lnr-phone-handset"></i>
 								012-6532-568-9746
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="{% url 'home' %}">
 								<i class="lnr lnr-envelope"></i>
 								emergency@colorlib.com
 							</a>
@@ -74,8 +74,8 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html">
-						<img src="{% static 'img2/logo.png' %}" alt="">
+					<a class="navbar-brand logo_h" href="{% url 'home' %}">
+						<img src="{% static 'img/logo.png' %}" alt="logo">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					 aria-expanded="false" aria-label="Toggle navigation">
@@ -126,7 +126,7 @@
 										</ul>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="contact.html">Contact</a>
+										<a class="nav-link" href="{% url 'water:contactUs' %}">Contact</a>
 									</li>
 								</ul>
 							</div>
@@ -203,11 +203,7 @@
 				</div>
 			</div>
 
-			<div class="row footer-bottom d-flex justify-content-between">
-				<p class="col-lg-8 col-sm-12 footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-				</p>
+			<!--<div class="row footer-bottom d-flex justify-content-between">
 				<div class="col-lg-4 col-sm-12 footer-social">
 					<a href="#">
 						<i class="fa fa-facebook"></i>
@@ -223,7 +219,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					</a>
 				</div>
 			</div>
-		</div>
+		</div>-->
 	</footer>
 	<!-- End footer Area -->
 
@@ -231,16 +227,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="{% static 'js2/jquery-3.2.1.min.js' %}"></script>
-	<script src="{% static 'js2/popper.js' %}"></script>
-	<script src="{% static 'js2/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/popper.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'vendors/nice-select/js/jquery.nice-select.min.js' %}"></script>
 	<script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
-	<script src="{% static 'js2/jquery.ajaxchimp.min.js' %}"></script>
+	<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
 	<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js' %}"></script>
 	<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js' %}"></script>
-	<script src="{% static 'js2/mail-script.js' %}"></script>
-	<script src="{% static 'js2/custom.js' %}"></script>
+	<script src="{% static 'js/mail-script.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
 </body>
 
 </html>

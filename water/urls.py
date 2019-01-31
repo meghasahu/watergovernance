@@ -39,6 +39,7 @@ urlpatterns = [
     # Admin Pages
 
     url(r'^admin/',views.adminland,name="adminland"),
+    url(r'^cleanDataset/',views.cleanDataset,name = "cleanDataset"),
     url(r'^modelResult/',views.modelResult,name="modelResult"),
     url(r'^alerts/',views.adminAlerts,name="alerts"),
     url(r'^addAdmin/',views.addAdmin,name="addAdmin"),

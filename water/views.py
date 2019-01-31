@@ -22,6 +22,7 @@ import base64
 
 import water.arima as arima
 import water.modelTest as modelTest
+import water.cleanData as cleanData
 from graphos.renderers.yui import LineChart
 
 # connecting to firebase
@@ -180,6 +181,7 @@ def adminland(request):
 
 			print(startdate)
 			print(enddate)
+			keys= []
 
 			# fetching data from start date to end date
 			#val = db.child('consumption').order_by_child('date').equal_to('13-01-2019').get()
@@ -188,45 +190,38 @@ def adminland(request):
 			val = db.child('1000').get()
 
 			for allkey in val.each():
-				keys = allkey.key()
+				keys.append(allkey.key())
+				print(keys)
 
 			for key in keys:
+				print(key)
 				val = db.child('consumption').child(key).order_by_child('date').start_at(startdate).end_at(enddate).get()
-
-				print(val)
-
-
-			
-
-			"""
-			for vibe_dict in val.items(): # dict is a Python keyword, so it's a bad choice for a variable!
-				print(vibe_dict[0])
-				result = db.child('consumption').child(vibe_dict[0]).order_by_child('date').equal_to('13-01-2019').get().val()
-
-				for consumption in val.each():
-					v = consumption.val()
-					data.append([v])
+				for vals in val.each():
+					v = vals.val()
+					data.append([v['date'],v['consumed']])
+					#data.append([])
 					print("printing v")
 					print(data)
-
-			
-			#start_at('13-01-2019').end_at('14-01-2019')
-
-			
-			
-
 			
 			# creating csv file and saving fetched data into it
 			with open('new.csv','w',newline='') as file1:
 				writer = csv.writer(file1)
 				writer.writerows(data)
 
-			print(val)
-			"""	
 		return render(request,'admin.html')
 
 	else:
 		return render(request,'sign_in_admin.html')
+
+def cleanDataset(request):
+	if request.session.has_key('adminname'):
+		if request.method == "POST":
+			file1 = request.POST.get("fileupload")
+			cleanData.cleanData(request,file1)
+		return render(request, 'uploadDataset.html')
+	else:
+		return render(request,'sign_in_admin.html')
+
 
 def uploadModel(request):
 	if request.session.has_key('adminname'):
