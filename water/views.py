@@ -28,10 +28,18 @@ import water.modelTest as modelTest
 import water.cleanData as cleanData
 from graphos.renderers.yui import LineChart
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+cred = credentials.Certificate('lbswater-firebase-adminsdk-en8mh-fe88f0158d.json')
+firebase = firebase_admin.initialize_app(cred,{'databaseURL': 'https://lbswater.firebaseio.com/'});
+
+ref = db.reference()
+
 # connecting to firebase
 
 #configuration setting 
-config = {
+"""config = {
     "apiKey": "AIzaSyDJQ46f0iVp_ldrx5Y_AgZ5HWtyI9dfYd8",
     "authDomain": "lbswater.firebaseapp.com",
     "databaseURL": "https://lbswater.firebaseio.com",
@@ -41,7 +49,7 @@ config = {
   };
 
 firebase = pyrebase.initialize_app(config);
-db = firebase.database()
+db = firebase.database()"""
 
 
 
@@ -83,7 +91,8 @@ def signup(request):
 
 		data = {"name": name , "email": email,"phoneNo":phone,"address":address,
 		"country":country,"city":city,"state":state,"pincode":pincode ,"password":password,"sensorId":sensor}
-		db.child("1000").child(uniqueid).set(data)
+		ref.child("1000").child(uniqueid).set(data)
+		request.session['username'] = email
 
 		return render(request,'user.html')
 	else:
@@ -100,17 +109,16 @@ def signinadmin(request):
 		#print(val.order_by_child('password').get())
 
 		# fetching data where email id is equals to email
-		val = db.child('admin').order_by_child('email').equal_to(email).get()
+		val = ref.child('admin').order_by_child("email").equal_to(email).get()
 		print("in")
 
 		#print(val.val())
 		
 		# accessing fetched data 
-		for val1 in val.each():
+		for key,value in val.items():
 			print("hey")
 
 			# getting value from pyrebase object
-			value = val1.val()
 
 			print(value["password"])
 
@@ -133,21 +141,22 @@ def signin_user(request):
 	if request.method == "POST":
 		email = request.POST.get('username')
 		password = request.POST.get('password')
-		print("user")
+		print(email)
 
 		#val = db.child('1000400074').order_by_child('email').equal_to('2016.megha.sahu@ves.ac.in').get()
 		#print(val.order_by_child('password').get())
 
 		# fetching data where email id is equals to email
-		val = db.child('1000').order_by_child('email').equal_to(email).get()
-		
+		val = ref.child('1000').order_by_child('email').equal_to(email).get()
+		print("email")
+		print(val)
 		# accessing fetched data 
-		for val1 in val.each():
-
+		for key,value in val.items():
 			# getting value from pyrebase object
-			value = val1.val()
-
-			print(value["password"])
+			#for val2 in val1:
+			print("password")
+			print(value)
+			#print(val2[1])
 
 			# comparing fetched password and entered password
 			if(value["password"] == password):
@@ -193,7 +202,7 @@ def adminland(request):
 			#val = db.child('consumption').order_by_child('date').equal_to('13-01-2019').get()
 
 			#fetching all the users in consumption
-			val = db.child('1000').get()
+			val = ref.child('1000').get()
 
 			for allkey in val.each():
 				keys.append(allkey.key())
@@ -201,7 +210,7 @@ def adminland(request):
 
 			for key in keys:
 				print(key)
-				val = db.child('consumption').child(key).order_by_child('date').start_at(startdate).end_at(enddate).get()
+				val = ref.child('consumption').child(key).order_by_child('date').start_at(startdate).end_at(enddate).get()
 				for vals in val.each():
 					v = vals.val()
 					data.append([v['date'],v['consumed']])
@@ -280,7 +289,7 @@ def addAdmin(request):
 
 			data = {"email":email,"name":name,"phone":phone,"password":password}
 
-			db.child("admin").push(data)
+			ref.child("admin").push(data)
 			return render(request,'add_admin.html')
 
 		else:
