@@ -342,8 +342,6 @@ def user_alerts(request):
 
 
 
-
-<<<<<<< HEAD
 """
 def modelResult(request):
 
@@ -417,8 +415,6 @@ def modelResult(request):
 
 	return render(request,'modelResult.html')
 """
-=======
->>>>>>> 6cadc82a6113a7ec76f21d502c5dbf3150e6f0e1
 def admin_logout(request):
 	try:
 		del request.session['username']
