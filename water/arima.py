@@ -85,7 +85,7 @@ def arimaCall(request,modelfile):
 
 	print(predictions)
 	
-	data = [['Serial','Y','Prediction']]
+	data = [['Serial','Expected','Prediction']]
 	#data.extend(list(zip(predictions,y)))
 
 	sendpred = predictions
@@ -100,7 +100,7 @@ def arimaCall(request,modelfile):
 		print(i)
 		print(pred)
 		print(ydata)
-		data.append([serial,ydata,pred])
+		data.append([i,ydata,pred])
 		serial = serial+50
 
 	print(data)

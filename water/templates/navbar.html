@@ -7,10 +7,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-
 	<link rel="icon" href="{% static 'img/water-logo.png' %}" type="image/png">
 	<title>Water E-Governance</title>
 	<title>Hospice Medical</title>
+	<link rel="icon" href="{% static 'img/water-logo.png' %}" type="image/png">
+	<title>Water E-Governance</title>
+
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
@@ -38,6 +40,7 @@
 					<a class="navbar-brand logo_h" href="{% url 'home' %}">
 						<!-- <img src="{% static 'img/logo.png' %}" alt="logo"> -->
 						<h3>Water E-Governance Platform</h3>
+						<!--<img src="{% static 'img/logo.png' %}" alt="logo"> --><h3>Water E-Governance Platform</h3>
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					 aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +65,10 @@
 									<li class="nav-item ">
 										<a class="nav-link" href="{% url 'water:signin_admin' %}">Admin Panel</a>
 									</li>
-									<li class="nav-item submenu dropdown">
+									<li class="nav-item ">
+										<a class="nav-link" href="{% url 'water:aboutUs' %}">About Us</a>
+									</li>
+									<!--<li class="nav-item submenu dropdown">
 										<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">
@@ -75,7 +81,10 @@
 												<a class="nav-link" href="elements.html">Elements</a>
 											</li>
 										</ul>
+
 									</li>
+									</li>-->
+
 									
 									<li class="nav-item">
 										<a class="nav-link" href="{% url 'water:contactUs' %}">Contact</a>
