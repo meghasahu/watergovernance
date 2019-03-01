@@ -344,6 +344,79 @@ def user_alerts(request):
 
 
 
+
+def modelResult(request):
+
+	print("in")
+
+	series = Series.from_csv('water.csv', header=0)
+	split_point = len(series) - 10
+	dataset, validation = series[0:split_point], series[split_point:]
+	print('Dataset %d, Validation %d' % (len(dataset), len(validation)))
+	dataset.to_csv('dataset.csv')
+	validation.to_csv('validation.csv')
+
+	# load data
+	series = Series.from_csv('dataset.csv')
+	# prepare data
+	X = series.values
+	X = X.astype('float32')
+	train_size = int(len(X) * 0.50)
+	train, test = X[0:train_size], X[train_size:]
+	# walk-forward validation
+	history = [x for x in train]
+	predictions = list()
+	for i in range(len(test)):
+		# predict
+		yhat = history[-1]
+		predictions.append(yhat)
+		# observation
+		obs = test[i]
+		history.append(obs)
+		print('>Predicted=%.3f, Expected=%3.f' % (yhat, obs))
+	# report performance
+	mse = mean_squared_error(test, predictions)
+	rmse = sqrt(mse)
+	print('RMSE: %.3f' % rmse)
+
+	fig = Figure()
+	ax = fig.add_subplot(111)
+	data_df = pandas.read_csv("dataset.csv")
+	data_df = pandas.DataFrame(data_df)
+	data_df.plot(ax=ax)
+	canvas = FigureCanvas(fig)
+	fig.savefig('water/static/img/test.png')
+	response = HttpResponse( content_type = 'image/png')
+	canvas.print_png(response)
+
+
+	#return response
+
+	"""
+	series = Series.from_csv('dataset.csv')
+	res = series.plot()
+	#pyplot.show()
+
+	print("hey")
+
+	
+	buffer = io.BytesIO()
+	canvas = pyplot.get_current_fig_manager().canvas
+	canvas.draw()
+	#graphIMG = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+
+	graphIMG = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+	graphIMG.save(buffer,"PNG")
+	pyplot.close()
+	graph = base64.b64encode(buffer.getvalue())
+
+	"""
+	#return response
+
+    #return HttpResponse(buffer.getvalue(), content_type="image/png")
+
+	return render(request,'modelResult.html')
+
 def admin_logout(request):
 	try:
 		del request.session['username']
