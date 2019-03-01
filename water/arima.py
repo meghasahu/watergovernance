@@ -11,7 +11,8 @@ from graphos.sources.csv_file import CSVDataSource
 from graphos.sources.simple import SimpleDataSource
 
 
-from graphos.renderers.yui import LineChart
+#from graphos.renderers.yui import LineChart
+from graphos.renderers.gchart import LineChart
 
 from django.shortcuts import render
 
@@ -29,6 +30,7 @@ def arimaCall(request,modelfile):
 	# load data
 	series = Series.from_csv('dataset.csv')
 	# prepare data
+	serial=500
 	X = series.values
 	X = X.astype('float32')
 	# fit model
@@ -98,16 +100,18 @@ def arimaCall(request,modelfile):
 		print(i)
 		print(pred)
 		print(ydata)
-		data.append([i,ydata,pred])
+		data.append([serial,ydata,pred])
+		serial = serial+50
 
 	print(data)
 	
 	
 	data_source = SimpleDataSource(data=data)
 
-	chart = LineChart(data_source)
+	#chart = LineChart(data_source,options={'title':'Prediction','xaxis':{'mode': "categories"}})
+	#chart = LineChart(html_id='gchart_div')
+	chart = LineChart(data_source, options={'title': 'Prediction'})
 
 	context = {"chart":chart,"values":data}
-
 
 	return context

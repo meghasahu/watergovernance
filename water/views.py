@@ -28,7 +28,7 @@ import water.modelTest as modelTest
 import water.cleanData as cleanData
 from graphos.renderers.yui import LineChart
 
-import firebase_admin
+import firebase_admin                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 from firebase_admin import credentials
 from firebase_admin import db
 cred = credentials.Certificate('lbswater-firebase-adminsdk-en8mh-fe88f0158d.json')
@@ -204,15 +204,14 @@ def adminland(request):
 			#fetching all the users in consumption
 			val = ref.child('1000').get()
 
-			for allkey in val.each():
-				keys.append(allkey.key())
+			for allkey,data in val.items():
+				keys.append(allkey)
 				print(keys)
 
 			for key in keys:
 				print(key)
 				val = ref.child('consumption').child(key).order_by_child('date').start_at(startdate).end_at(enddate).get()
-				for vals in val.each():
-					v = vals.val()
+				for key,v in val.items():
 					data.append([v['date'],v['consumed']])
 					#data.append([])
 					print("printing v")
@@ -344,6 +343,82 @@ def user_alerts(request):
 
 
 
+<<<<<<< HEAD
+"""
+def modelResult(request):
+
+	print("in")
+
+	series = Series.from_csv('water.csv', header=0)
+	split_point = len(series) - 10
+	dataset, validation = series[0:split_point], series[split_point:]
+	print('Dataset %d, Validation %d' % (len(dataset), len(validation)))
+	dataset.to_csv('dataset.csv')
+	validation.to_csv('validation.csv')
+
+	# load data
+	series = Series.from_csv('dataset.csv')
+	# prepare data
+	X = series.values
+	X = X.astype('float32')
+	train_size = int(len(X) * 0.50)
+	train, test = X[0:train_size], X[train_size:]
+	# walk-forward validation
+	history = [x for x in train]
+	predictions = list()
+	for i in range(len(test)):
+		# predict
+		yhat = history[-1]
+		predictions.append(yhat)
+		# observation
+		obs = test[i]
+		history.append(obs)
+		print('>Predicted=%.3f, Expected=%3.f' % (yhat, obs))
+	# report performance
+	mse = mean_squared_error(test, predictions)
+	rmse = sqrt(mse)
+	print('RMSE: %.3f' % rmse)
+
+	fig = Figure()
+	ax = fig.add_subplot(111)
+	data_df = pandas.read_csv("dataset.csv")
+	data_df = pandas.DataFrame(data_df)
+	data_df.plot(ax=ax)
+	canvas = FigureCanvas(fig)
+	fig.savefig('water/static/img/test.png')
+	response = HttpResponse( content_type = 'image/png')
+	canvas.print_png(response)
+
+
+	#return response
+
+
+	series = Series.from_csv('dataset.csv')
+	res = series.plot()
+	#pyplot.show()
+
+	print("hey")
+
+	
+	buffer = io.BytesIO()
+	canvas = pyplot.get_current_fig_manager().canvas
+	canvas.draw()
+	#graphIMG = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+
+	graphIMG = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+	graphIMG.save(buffer,"PNG")
+	pyplot.close()
+	graph = base64.b64encode(buffer.getvalue())
+
+	
+	#return response
+
+    #return HttpResponse(buffer.getvalue(), content_type="image/png")
+
+	return render(request,'modelResult.html')
+"""
+=======
+>>>>>>> 6cadc82a6113a7ec76f21d502c5dbf3150e6f0e1
 def admin_logout(request):
 	try:
 		del request.session['username']
