@@ -28,7 +28,7 @@ import water.modelTest as modelTest
 import water.cleanData as cleanData
 from graphos.renderers.yui import LineChart
 
-import firebase_admin
+import firebase_admin                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 from firebase_admin import credentials
 from firebase_admin import db
 cred = credentials.Certificate('lbswater-firebase-adminsdk-en8mh-fe88f0158d.json')
@@ -204,15 +204,14 @@ def adminland(request):
 			#fetching all the users in consumption
 			val = ref.child('1000').get()
 
-			for allkey in val.each():
-				keys.append(allkey.key())
+			for allkey,data in val.items():
+				keys.append(allkey)
 				print(keys)
 
 			for key in keys:
 				print(key)
 				val = ref.child('consumption').child(key).order_by_child('date').start_at(startdate).end_at(enddate).get()
-				for vals in val.each():
-					v = vals.val()
+				for key,v in val.items():
 					data.append([v['date'],v['consumed']])
 					#data.append([])
 					print("printing v")
@@ -344,7 +343,8 @@ def user_alerts(request):
 
 
 
-
+<<<<<<< HEAD
+"""
 def modelResult(request):
 
 	print("in")
@@ -392,7 +392,7 @@ def modelResult(request):
 
 	#return response
 
-	"""
+
 	series = Series.from_csv('dataset.csv')
 	res = series.plot()
 	#pyplot.show()
@@ -410,13 +410,15 @@ def modelResult(request):
 	pyplot.close()
 	graph = base64.b64encode(buffer.getvalue())
 
-	"""
+	
 	#return response
 
     #return HttpResponse(buffer.getvalue(), content_type="image/png")
 
 	return render(request,'modelResult.html')
-
+"""
+=======
+>>>>>>> 6cadc82a6113a7ec76f21d502c5dbf3150e6f0e1
 def admin_logout(request):
 	try:
 		del request.session['username']
