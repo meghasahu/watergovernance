@@ -20,9 +20,6 @@ import PIL
 import PIL.Image
 
 import base64
-
-
-
 import water.arima as arima
 import water.modelTest as modelTest
 import water.cleanData as cleanData
@@ -76,23 +73,23 @@ def signup(request):
 		email = request.POST.get('email')
 		phone = request.POST.get('phone')
 		address = request.POST.get('address')
-		country = request.POST.get('country')
-		city = request.POST.get('city')
-		state = request.POST.get('state')
-		pincode = request.POST.get('pincode')
+		smartid = request.POST.get('smartid')
+		#country = request.POST.get('country')
+		#city = request.POST.get('city')
+		#state = request.POST.get('state')
+		#pincode = request.POST.get('pincode')
 		password = request.POST.get('password')
 		sensor = request.POST.get('sensor')
 		#getting db instance
-		uniqueid = "1000"+pincode+sensor
+		uniqueid = "1000"+smartid+sensor
 		#endid = endid+1
 		print(uniqueid)
 		print(name)
 		print(email)
 
-		data = {"name": name , "email": email,"phoneNo":phone,"address":address,
-		"country":country,"city":city,"state":state,"pincode":pincode ,"password":password,"sensorId":sensor}
+		data = {"name": name , "email": email,"phoneNo":phone,"address":address,"smartid":smartid ,"password":password,"sensorId":sensor}
 		ref.child("1000").child(uniqueid).set(data)
-		request.session['username'] = email
+		request.session['username'] = uniqueid
 
 		return render(request,'user.html')
 	else:
@@ -125,7 +122,7 @@ def signinadmin(request):
 			# comparing fetched password and entered password
 			if(value["password"] == password):
 				print("rendering")
-				request.session['adminname'] = email
+				request.session['adminname'] = key
 				return render(request,'admin.html')
 
 			else:
@@ -161,7 +158,7 @@ def signin_user(request):
 			# comparing fetched password and entered password
 			if(value["password"] == password):
 				print("rendering")
-				request.session['username'] = email
+				request.session['username'] = key
 				#messages.success(request,"Login successful")
 				return render(request,'user.html')
 
