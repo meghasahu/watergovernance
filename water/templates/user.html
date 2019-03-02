@@ -1,73 +1,58 @@
 {% extends 'sidebarUser.html' %}
 {% block user %}
 
-<!DOCTYPE html>
-<html>
-<head>
+<script type="text/javascript">
+    function myfunction(val)
+    {
+      //val = {{ myconsumption }};
+      console.log(val)
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
 
-  <title>Individual Panel</title>
-  
-</head>
-<body>
-
-
-  <div class="content">
-        <div class="container-fluid">
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Consumption', val],
           
-            <h1><center>Analytics</center></h1>
-            
-           
-          
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-           <div class="card">
-                <div class="card-header card-header-warning">
-                  <h4 class="card-title" style="padding:5px;">Check Previous Water Consumption data</h4>
-                </div>
-               
-             <div class="card-body">
-              <div class="row" style="padding-bottom:20px;">
-                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="padding-top:2%;">
-                    
-                    <div>
-                      <p style="font-size:18px;">Starting Year </p>
-                         <input type="date" name="startingyear">
-                    </div>
+        ]);
 
-                  </div>
-                 
-                  
-                 <div class="col-lg-4 cold-md-4 col-sm-6 col-xs-12" style="padding-top:2%;">
-                    <div>
-                    <p style="font-size:18px;">Ending Year</p>
-                    <input type="date" name="endingyear">
-                    </div>
-                 </div>
-
-                  <div class="col-lg-4 cold-md-4 col-sm-6 col-xs-12" style="padding-top:2%;">
-
-                 	<button type="submit" class="btn btn-primary btn-large">Submit</button>
-
-                 </div>
+        var options = {
+          width: 600, height: 500,
+          redFrom: 200, redTo: 300,
+          yellowFrom:100, yellowTo: 200,
+          minorTicks: 5,min:0,
+          max:300,
+          greenFrom:0,greenTo:100
+      
+        };
 
 
-              </div>
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
 
-            </div>
- 
-             
-            </div>
-          </div>
+        chart.draw(data, options);
 
-        </div>
+      }
+    }
+    </script>
+
+<script type="text/javascript">
+    myvar = myfunction({{myconsumption|safe }});
+    
+</script>
    
-        
-
-      </div>
-
+    <div class="content content-center">
+        <div class="container-fluid">
+           <div class="row">
+      <div class="col-md-12" style="margin-left:20%">
+    <h2>Your Today's Consumption</h2>
+    <div id="chart_div" style="width: 400px; height: 120px;"> {{context.as_html}}
     </div>
-
-</body>
-</html>
-
+  </div>
+</div>
+ <div style="margin-left:18%;margin-top:30%" class="col-md-6 alert alert-info"><p><h3>Contribute to Your City Use 50 L a Day </h3> Total Family Members {{members}} </p></div>
+  </div>
+    
+  </div>
+</div>
+  <!--<div>{{chart.as_html}}</div>-->
 {% endblock %}

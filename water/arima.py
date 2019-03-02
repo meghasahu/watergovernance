@@ -95,11 +95,15 @@ def arimaCall(request,modelfile):
 
 	length = len(predictions)
 	for i in range(length):
-		pred = predictions.pop(0)
-		ydata = y.pop(0)
+		pred = predictions.pop()
+		ydata = y.pop()
 		print(i)
 		print(pred)
 		print(ydata)
+		type(pred)
+		type(ydata)
+		#pred = list(pred).reverse()
+		#ydata = list(ydata).reverse()
 		data.append([i,ydata,pred])
 		serial = serial+50
 

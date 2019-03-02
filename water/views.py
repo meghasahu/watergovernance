@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import pyrebase
 from django.contrib import messages
+import json
 import csv
 from graphos.sources.simple import SimpleDataSource
 #Package for model
@@ -14,16 +14,19 @@ from math import sqrt
 import pandas
 from pandas import Series
 import io
+import xlwt
 
 # installed pillow but for old compatibility they use PIL only
-import PIL
-import PIL.Image
 
 import base64
 import water.arima as arima
 import water.modelTest as modelTest
 import water.cleanData as cleanData
-from graphos.renderers.yui import LineChart
+from graphos.renderers.gchart import LineChart
+
+# for consumption display converting consumption to json
+import datetime
+from graphos.renderers.gchart import GaugeChart
 
 import firebase_admin                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 from firebase_admin import credentials
@@ -34,21 +37,6 @@ firebase = firebase_admin.initialize_app(cred,{'databaseURL': 'https://lbswater.
 ref = db.reference()
 
 # connecting to firebase
-
-#configuration setting 
-"""config = {
-    "apiKey": "AIzaSyDJQ46f0iVp_ldrx5Y_AgZ5HWtyI9dfYd8",
-    "authDomain": "lbswater.firebaseapp.com",
-    "databaseURL": "https://lbswater.firebaseio.com",
-    "projectId": "lbswater",
-    "storageBucket": "lbswater.appspot.com",
-    "messagingSenderId": "1065042380223"
-  };
-
-firebase = pyrebase.initialize_app(config);
-db = firebase.database()"""
-
-
 
 
 #Rendering Home Page
@@ -74,7 +62,7 @@ def signup(request):
 		phone = request.POST.get('phone')
 		address = request.POST.get('address')
 		smartid = request.POST.get('smartid')
-		#country = request.POST.get('country')
+		members = request.POST.get('members')
 		#city = request.POST.get('city')
 		#state = request.POST.get('state')
 		#pincode = request.POST.get('pincode')
@@ -87,7 +75,7 @@ def signup(request):
 		print(name)
 		print(email)
 
-		data = {"name": name , "email": email,"phoneNo":phone,"address":address,"smartid":smartid ,"password":password,"sensorId":sensor}
+		data = {"name": name , "email": email,"phoneNo":phone,"address":address,"smartid":smartid ,"password":password,"sensorId":sensor,"members":members}
 		ref.child("1000").child(uniqueid).set(data)
 		request.session['username'] = uniqueid
 
@@ -107,7 +95,6 @@ def signinadmin(request):
 
 		# fetching data where email id is equals to email
 		val = ref.child('admin').order_by_child("email").equal_to(email).get()
-		print("in")
 
 		#print(val.val())
 		
@@ -189,11 +176,19 @@ def adminland(request):
 			startdate = request.POST.get('startingyear')
 			enddate = request.POST.get('endingyear')
 
-			data = list()
-
 			print(startdate)
 			print(enddate)
 			keys= []
+			response = HttpResponse(content_type='application/ms-excel')
+			response['Content-Disposition'] = 'attachment; filename="users.xls"'
+
+			wb = xlwt.Workbook(encoding='utf-8')
+			ws = wb.add_sheet('Users')
+
+			row_num = 0
+			font_style = xlwt.XFStyle()
+			font_style.font.bold = True
+			csvdata = list()
 
 			# fetching data from start date to end date
 			#val = db.child('consumption').order_by_child('date').equal_to('13-01-2019').get()
@@ -204,22 +199,46 @@ def adminland(request):
 			for allkey,data in val.items():
 				keys.append(allkey)
 				print(keys)
+			'''for col_num in range(len(columns)):
+        		ws.write(row_num, col_num, columns[col_num], font_style)'''
+
+    		# Sheet body, remaining rows
 
 			for key in keys:
 				print(key)
-				val = ref.child('consumption').child(key).order_by_child('date').start_at(startdate).end_at(enddate).get()
+				val = ref.child('water_consumption').child(key).order_by_child('date').start_at('2019-02-01').end_at('2019-02-02').get()
+				val = ref.child('water_consumption').child(key).order_by_child('date').equal_to('2019-02-01').get()
+				print(val)
+				
 				for key,v in val.items():
-					data.append([v['date'],v['consumed']])
+					csvdata.append([v['date'],v['consumed']])
 					#data.append([])
 					print("printing v")
-					print(data)
+					print(csvdata)
+			"""font_style = xlwt.XFStyle()
+			for row in columns:
+				row_num += 1
+				for col_num in range(len(row)):
+					ws.write(row_num, col_num, row[col_num], font_style)
+			wb.save(response)"""
+
+			print("hello")
 			
 			# creating csv file and saving fetched data into it
 			with open('new.csv','w',newline='') as file1:
 				writer = csv.writer(file1)
-				writer.writerows(data)
+				writer.writerows(csvdata)
 
-		return render(request,'admin.html')
+			with open('new.csv', 'rb') as myfile:
+				response = HttpResponse(myfile, content_type='text/csv')
+				response['Content-Disposition'] = 'attachment; filename=new.csv'
+            
+        	#return HttpResponse(response,content_type='application/csv')
+
+			#return HttpResponse(response,content_type='application/csv')
+			return response
+		else:
+			return render(request,'admin.html',{})
 
 	else:
 		return render(request,'sign_in_admin.html')
@@ -325,15 +344,41 @@ def userInfo(request):
 
 def userland(request):
 	if request.session.has_key('username'):
+		data = 0
+		date = str(datetime.datetime.now().date())
+		print(date)
+		userid = request.session.get('username')
 
-		return render(request,'user.html')
+		# getting consumption of the day
+		consumption = ref.child('water_consumption').child(userid).order_by_child('date').equal_to(date).get()
+		print(consumption)
+		for key,val in consumption.items():
+			print(val)
+			data = val["consumed"]
+
+		info = ref.child('1000').child(userid).get()
+		print(info)
+		
+		members = info["members"]
+
+		allowed = members*50
+
+		return render(request,'user.html',{'myconsumption':data,'members':members,'allowed':allowed})
 	else:
 		return render(request,'sign_in_user.html')
 
 def user_alerts(request):
 	if request.session.has_key('username'):
+		userid = request.session.get('username')
+		val = ref.child('alerts').child(userid).order_by_child('date').get()
+		table=list()
+		for key,value in val.items():
+			#data.append([i,value["consumed"],expected])
 
-		return render(request,'user_alerts.html')
+			table.append([value["date"],value["consumed"]])
+			#i=i+1
+
+		return render(request,'user_alerts.html',{'table':table})
 	else:
 		return render(request,'sign_in_user.html')
 
@@ -410,6 +455,31 @@ def modelResult(request):
 
 	return render(request,'modelResult.html')
 """
+def user_month(request):
+
+	userid = request.session.get('username')
+	val = ref.child('water_consumption').child(userid).order_by_child('date').limit_to_first(30).get()
+
+	data = [['Serial','Consumed','Threshold']]
+	table=list()
+	i = 0
+	info = ref.child('1000').child(userid).get()
+	print(info)
+	
+	members = info["members"]
+
+	allowed = members*50
+	for key,value in val.items():
+		data.append([i,value["consumed"],allowed])
+
+		table.append([value["date"],value["consumed"]])
+		i=i+1
+	
+	data_source = SimpleDataSource(data=data)
+	chart = LineChart(data_source, options={'title': 'Monthly Statistics'})
+	print(table)
+	#context = {"chart":chart,"values":data}
+	return render(request,'user_month.html',{'chart':chart,'table':table,'members':members})
 def admin_logout(request):
 	try:
 		del request.session['username']

@@ -50,8 +50,10 @@ urlpatterns = [
 
 
     # User Pages
-
+    # Today's consumption
     url(r'^user/',views.userland,name="user"),
     url(r'^userlogout/',views.user_logout,name="userlogout"),
     url(r'^useralerts/',views.user_alerts,name="useralerts"),
+    url(r'^usermonthly/',views.user_month,name="usermonthly"),
+
 ]

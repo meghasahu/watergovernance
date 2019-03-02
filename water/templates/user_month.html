@@ -1,14 +1,16 @@
-{% extends 'sidebarAdmin.html' %}
-{% block admin %}
-<br>
+{% extends 'sidebarUser.html' %}
+{% block user %}
 <div class="content content-center">
+	<h3>Total Members {{members}} per head 50 L</h3>
+
 {{chart.as_html}}
-	<div class="row">
-		<div class="col-md-8">
+<div class="row">
+	<div class="col-md-8">
               <div class="card" >
 		<div class="table-responsive">
 			<table class="table">
-	{% for first in values %}
+				<tr><th class="text-center">Date</th><th class="text-center">Consumption</th></tr>
+	{% for first in table %}
 	<tr>
 	{% for value in first %}
 	<td class="text-center">
@@ -22,6 +24,4 @@
 </div>
 </div>
 </div>
-</div>
-
 {% endblock %}
