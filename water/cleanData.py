@@ -10,7 +10,7 @@ def cleanData(request,file1):
 	dataset.to_csv('dataset.csv')
 	validation.to_csv('validation.csv')
 
-	copyfile("dataset.csv","C:\\Users\\ankur\\Desktop\\data.csv")
-	copyfile("validation.csv","C:\\Users\\ankur\\Desktop\\valid.csv")
+	copyfile("dataset.csv","C:\\Users\\megha_ankit\\Desktop\\data.csv")
+	copyfile("validation.csv","C:\\Users\\megha_ankit\\Desktop\\valid.csv")
 
 	return
