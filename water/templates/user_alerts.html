@@ -3,7 +3,30 @@
 {% block user %}
 <div class="content">
         <div class="container-fluid">
-         <h1> Working </h1>
+         {{Alerts1.as_html}}
+         <div class="row">
+           <table class="table">
+         	  <thead>
+         		 <th>Consumed</th>
+				 <th>Date</th>
+			  </thead>
+              
+			  {% for first in Alerts1 %}
+			  <tr>
+			  
+			  <td class="text-center">
+              {{ first|safe }}
+             </td>
+
+             <td class="text-center">
+              {{ first|safe }}
+             </td>
+              
+             </tr>
+
+              {% endfor %}
+            </table>
+        </div>
      </div>
  </div>
 {% endblock %}

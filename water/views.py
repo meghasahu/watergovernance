@@ -332,8 +332,21 @@ def userland(request):
 
 def user_alerts(request):
 	if request.session.has_key('username'):
+		Alerts1=list()
+		table=['Date','Consumed']
+		alertlist = ref.child('alerts').child(request.session.get('username')).get();
+		
+		for key,value in alertlist.items():
+			Alerts1.append(value)
 
-		return render(request,'user_alerts.html')
+			table.append([value["date"],value["consumed"],])
+
+			print(Alerts1)
+		
+		
+		print(table)
+
+		return render(request,'user_alerts.html',{'table':table})
 	else:
 		return render(request,'sign_in_user.html')
 
