@@ -391,7 +391,7 @@ def user_alerts(request):
 
 			table.append([value["date"],value["consumed"]])
 			#i=i+1
->>>>>>> 97b8e2fe7e3debaacaef17736ce3e9214e761890
+
 
 		return render(request,'user_alerts.html',{'table':table})
 	else:
